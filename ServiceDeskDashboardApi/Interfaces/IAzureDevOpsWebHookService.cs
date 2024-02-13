@@ -1,8 +1,9 @@
 using ServiceDeskDashboardApi.Dtos;
+using ServiceDeskDashboardApi.Models;
 
 namespace ServiceDeskDashboardApi.Interfaces;
 
 public interface IAzureDevOpsWebHookService
 {
-    Task<bool> WebHookAsync(AzureDevOpsWebHookRelease request);
+    Task<bool> WebHookAsync(AzureDevOpsWebHookReleaseRequest request);
 }

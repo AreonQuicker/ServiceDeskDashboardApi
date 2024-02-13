@@ -9,15 +9,18 @@ namespace ServiceDeskDashboardApi.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.EnsureSchema(
+                name: "pbi");
+
             migrationBuilder.CreateTable(
-                name: "WebHookRelease",
+                name: "pbi.WebHookRelease",
+                schema: "pbi",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ReleaseCreatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    SubscriptionId = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    NotificationId = table.Column<int>(type: "int", nullable: true),
+                    ReleaseId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     EventType = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     MessageText = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DetailedMessageText = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -47,11 +50,12 @@ namespace ServiceDeskDashboardApi.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_WebHookRelease", x => x.Id);
+                    table.PrimaryKey("PK_pbi.WebHookRelease", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "WebHookReleaseCommit",
+                schema: "pbi",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -69,15 +73,17 @@ namespace ServiceDeskDashboardApi.Migrations
                 {
                     table.PrimaryKey("PK_WebHookReleaseCommit", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_WebHookReleaseCommit_WebHookRelease_WebHookReleaseId",
+                        name: "FK_WebHookReleaseCommit_pbi.WebHookRelease_WebHookReleaseId",
                         column: x => x.WebHookReleaseId,
-                        principalTable: "WebHookRelease",
+                        principalSchema: "pbi",
+                        principalTable: "pbi.WebHookRelease",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_WebHookReleaseCommit_WebHookReleaseId",
+                schema: "pbi",
                 table: "WebHookReleaseCommit",
                 column: "WebHookReleaseId");
         }
@@ -85,10 +91,12 @@ namespace ServiceDeskDashboardApi.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "WebHookReleaseCommit");
+                name: "WebHookReleaseCommit",
+                schema: "pbi");
 
             migrationBuilder.DropTable(
-                name: "WebHookRelease");
+                name: "pbi.WebHookRelease",
+                schema: "pbi");
         }
     }
 }

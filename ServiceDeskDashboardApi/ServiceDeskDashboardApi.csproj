@@ -8,11 +8,14 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Azure.Messaging.ServiceBus" Version="7.17.2" />
+        <PackageReference Include="Mapster" Version="7.4.1-pre01" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.26">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
         <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.26" />
+        <PackageReference Include="Microsoft.Extensions.Azure" Version="1.7.1" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0"/>
     </ItemGroup>
@@ -25,7 +28,6 @@
 
     <ItemGroup>
       <Folder Include="Migrations\" />
-      <Folder Include="Models\" />
     </ItemGroup>
 
 </Project>

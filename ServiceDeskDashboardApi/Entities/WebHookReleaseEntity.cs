@@ -9,9 +9,7 @@ public class WebHookReleaseEntity : AuditableEntity
 
     public int Id { get; set; }
     public DateTime? ReleaseCreatedDate { get; set; }
-    public string SubscriptionId { get; set; } = null!;
-    public int? NotificationId { get; set; }
-
+    public string ReleaseId { get; set; }
     public string? EventType { get; set; }
     public string? MessageText { get; set; }
     public string? DetailedMessageText { get; set; }

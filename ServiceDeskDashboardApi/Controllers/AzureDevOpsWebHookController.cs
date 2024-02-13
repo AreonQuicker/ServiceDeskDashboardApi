@@ -1,7 +1,9 @@
+using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using ServiceDeskDashboardApi.Dtos;
 using ServiceDeskDashboardApi.Interfaces;
+using ServiceDeskDashboardApi.Models;
 using ServiceDeskDashboardApi.Services;
 
 namespace ServiceDeskDashboardApi.Controllers;
@@ -21,8 +23,10 @@ public class AzureDevOpsWebHookController : ControllerBase
     }
 
     [HttpPost("webhook")]
-    public async Task<bool> WebHook([FromBody] AzureDevOpsWebHookRelease request)
+    public async Task<bool> WebHook([FromBody] AzureDevOpsWebHookRelease dto)
     {
+        var request = dto.Adapt<AzureDevOpsWebHookReleaseRequest>();
+
         return await _azureDevOpsWebHookService.WebHookAsync(request);
     }
 }

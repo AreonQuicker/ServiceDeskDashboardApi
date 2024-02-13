@@ -9,7 +9,7 @@ public class WebHookReleaseEntityConfiguration : IEntityTypeConfiguration<WebHoo
     public void Configure(EntityTypeBuilder<WebHookReleaseEntity> builder)
     {
         //Table Name
-        builder.ToTable("WebHookRelease");
+        builder.ToTable("pbi.WebHookRelease", schema: "pbi");
 
         //One To Many Relationship
         builder.HasMany(e => e.Commits)

@@ -1,6 +1,7 @@
 using ServiceDeskDashboardApi.Dtos;
 using ServiceDeskDashboardApi.Entities;
 using ServiceDeskDashboardApi.Interfaces;
+using ServiceDeskDashboardApi.Models;
 
 namespace ServiceDeskDashboardApi.Services;
 
@@ -13,7 +14,7 @@ public class AzureDevOpsWebHookService : IAzureDevOpsWebHookService
         _applicationDbContext = applicationDbContext;
     }
 
-    public async Task<bool> WebHookAsync(AzureDevOpsWebHookRelease request)
+    public async Task<bool> WebHookAsync(AzureDevOpsWebHookReleaseRequest request)
     {
         if (request is null)
             throw new ArgumentNullException(nameof(request));
@@ -23,8 +24,7 @@ public class AzureDevOpsWebHookService : IAzureDevOpsWebHookService
             CreatedBy = "System",
             Created = DateTime.Now,
             ReleaseCreatedDate = request.CreatedDate,
-            SubscriptionId = request.SubscriptionId,
-            NotificationId = request.NotificationId,
+            ReleaseId = request.Id,
             EventType = request.EventType,
             MessageText = request.Message?.Text,
             DetailedMessageText = request.DetailedMessage?.Text,

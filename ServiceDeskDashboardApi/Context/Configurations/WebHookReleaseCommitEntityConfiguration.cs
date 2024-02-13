@@ -10,6 +10,8 @@ public class
     public void Configure(EntityTypeBuilder<WebHookReleaseCommitEntity> builder)
     {
         //Table Name
-        builder.ToTable("WebHookReleaseCommit");
+        builder.ToTable("WebHookReleaseCommit", schema: "pbi");
+
+        //Set Table Schema
     }
 }

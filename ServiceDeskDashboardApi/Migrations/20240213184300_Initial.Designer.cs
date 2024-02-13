@@ -12,7 +12,7 @@ using ServiceDeskDashboardApi.Context;
 namespace ServiceDeskDashboardApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240213145956_Initial")]
+    [Migration("20240213184300_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -64,7 +64,7 @@ namespace ServiceDeskDashboardApi.Migrations
 
                     b.HasIndex("WebHookReleaseId");
 
-                    b.ToTable("WebHookReleaseCommit", (string)null);
+                    b.ToTable("WebHookReleaseCommit", "pbi");
                 });
 
             modelBuilder.Entity("ServiceDeskDashboardApi.Entities.WebHookReleaseEntity", b =>
@@ -145,9 +145,6 @@ namespace ServiceDeskDashboardApi.Migrations
                     b.Property<string>("MessageText")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("NotificationId")
-                        .HasColumnType("int");
-
                     b.Property<string>("ProjectId")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -159,6 +156,10 @@ namespace ServiceDeskDashboardApi.Migrations
                     b.Property<DateTime?>("ReleaseCreatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("ReleaseId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ResourceUrl")
                         .HasColumnType("nvarchar(max)");
 
@@ -166,13 +167,9 @@ namespace ServiceDeskDashboardApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("SubscriptionId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
-                    b.ToTable("WebHookRelease", (string)null);
+                    b.ToTable("pbi.WebHookRelease", "pbi");
                 });
 
             modelBuilder.Entity("ServiceDeskDashboardApi.Entities.WebHookReleaseCommitEntity", b =>

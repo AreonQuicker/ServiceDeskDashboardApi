@@ -905,10 +905,6 @@ public class ResourceContainers
 
 public class AzureDevOpsWebHookRelease
 {
-    [JsonProperty("subscriptionId")] public string SubscriptionId { get; set; }
-
-    [JsonProperty("notificationId")] public int? NotificationId { get; set; }
-
     [JsonProperty("id")] public string Id { get; set; }
 
     [JsonProperty("eventType")] public string EventType { get; set; }

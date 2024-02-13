@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Azure;
+using ServiceDeskDashboardApi.BackgroundServices;
 using ServiceDeskDashboardApi.Context;
 using ServiceDeskDashboardApi.Interfaces;
 using ServiceDeskDashboardApi.Services;
@@ -20,6 +22,18 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection"),
         b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
+
+var serviceBusConnectionString = builder.Configuration.GetValue<string>("AzureServiceBusConnectionString");
+
+//Add Azure service bus client
+builder.Services.AddAzureClients(b =>
+{
+    b.AddServiceBusClient(
+        serviceBusConnectionString);
+});
+
+
+builder.Services.AddHostedService<AzureDevOpsReleaseBackgroundService>();
 
 builder.Services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
 

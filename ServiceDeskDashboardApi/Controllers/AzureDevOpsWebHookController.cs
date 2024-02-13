@@ -1,4 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using ServiceDeskDashboardApi.Dtos;
+using ServiceDeskDashboardApi.Interfaces;
 using ServiceDeskDashboardApi.Services;
 
 namespace ServiceDeskDashboardApi.Controllers;
@@ -17,9 +20,9 @@ public class AzureDevOpsWebHookController : ControllerBase
         _azureDevOpsWebHookService = azureDevOpsWebHookService;
     }
 
-    [HttpGet("azure-dev-ops-release-web-hook")]
-    public bool AzureDevOpsReleaseWebHook()
+    [HttpPost("webhook")]
+    public async Task<bool> WebHook([FromBody] AzureDevOpsWebHookRelease request)
     {
-        return _azureDevOpsWebHookService.AzureDevOpsReleaseWebHook("");
+        return await _azureDevOpsWebHookService.WebHookAsync(request);
     }
 }

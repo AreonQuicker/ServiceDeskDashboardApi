@@ -12,17 +12,22 @@ public class AzureDevOpsReleaseBackgroundService : BackgroundService
 {
     private readonly ServiceBusClient _serviceBusClient;
     private readonly IServiceProvider _serviceProvider;
+    private readonly IConfiguration _configuration;
     private ServiceBusProcessor _processor;
 
-    public AzureDevOpsReleaseBackgroundService(ServiceBusClient serviceBusClient, IServiceProvider serviceProvider)
+    public AzureDevOpsReleaseBackgroundService(ServiceBusClient serviceBusClient, IServiceProvider serviceProvider,
+        IConfiguration configuration)
     {
         _serviceBusClient = serviceBusClient;
         _serviceProvider = serviceProvider;
+        _configuration = configuration;
     }
 
     protected async override Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        _processor = _serviceBusClient.CreateProcessor("azuredevopswebhook", new ServiceBusProcessorOptions());
+        var queueName = _configuration["AzureServiceBusQueueName"];
+
+        _processor = _serviceBusClient.CreateProcessor(queueName, new ServiceBusProcessorOptions());
         _processor.ProcessMessageAsync += MessageHandler;
         _processor.ProcessErrorAsync += ErrorHandler;
 

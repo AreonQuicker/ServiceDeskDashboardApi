@@ -60,7 +60,6 @@ public class AzureDevOpsWebHookService : IAzureDevOpsWebHookService
         };
 
         await _applicationDbContext.WebHookReleaseEntities.AddAsync(entity);
-
         await _applicationDbContext.SaveChangesAsync();
 
         return true;
